@@ -141,12 +141,12 @@ h1 {
 .task-text {
     flex: 1;
     font-size: 16px;
-    color: #374151;
+    color: var(--color-text);
 }
 
 .completed .task-text {
     text-decoration: line-through;
-    color: #aaa;
+    color: var(--color-text-secondary);
 }
 
 .task-delete {
