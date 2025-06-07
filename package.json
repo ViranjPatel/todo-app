@@ -2,7 +2,7 @@
   "name": "todo-app",
   "version": "1.0.0",
   "description": "A simple to-do application to manage tasks",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
     "start": "http-server src -p 8080",
     "test": "jest"
