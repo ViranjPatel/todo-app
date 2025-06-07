@@ -2,33 +2,48 @@
     --md-primary: #6200ea;
     --md-primary-hover: #3700b3;
     --md-danger: #b00020;
+    --color-bg: #F9FAFB;
+    --color-card-bg: #FFFFFF;
+    --color-text: #1F2937;
+    --color-text-secondary: #6B7280;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-bg: #111827;
+        --color-card-bg: #1F2937;
+        --color-text: #F9FAFB;
+        --color-text-secondary: #E5E7EB;
+    }
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', Arial, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 body {
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: var(--color-bg);
+    color: var(--color-text);
     line-height: 1.6;
 }
 
 .container {
     max-width: 600px;
     margin: 50px auto;
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: var(--color-card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
-    color: var(--md-primary);
+    color: var(--color-text);
+    font-weight: 700;
+    font-size: 24px;
     margin-bottom: 20px;
 }
 
@@ -39,21 +54,26 @@ h1 {
 
 #taskInput {
     flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px 0 0 4px;
+    padding: 12px 16px;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px 0 0 8px;
     font-size: 16px;
 }
 
+#taskInput::placeholder {
+    color: #9CA3AF;
+}
+
 #addTask {
-    padding: 10px 16px;
+    padding: 10px 20px;
     background: var(--md-primary);
     color: #fff;
     border: none;
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 8px 8px 0;
     cursor: pointer;
     font-size: 16px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
     transition: background 0.2s;
 }
 
@@ -68,20 +88,24 @@ h1 {
 }
 
 .filter-btn {
-    margin: 0 4px;
-    padding: 6px 12px;
+    margin: 0 8px;
+    padding: 6px 0;
     background: none;
     border: none;
-    border-radius: 4px;
+    border-bottom: 2px solid transparent;
     cursor: pointer;
-    color: var(--md-primary);
+    color: var(--color-text-secondary);
     font-weight: 500;
-    transition: background 0.2s;
+    transition: border-color 0.2s, color 0.2s;
 }
 
-.filter-btn:hover,
 .filter-btn.active {
-    background: rgba(98, 0, 234, 0.1);
+    color: var(--color-text);
+    border-color: var(--md-primary);
+}
+
+.filter-btn:hover {
+    color: var(--color-text);
 }
 
 .task-list {
@@ -91,8 +115,9 @@ h1 {
 .task-item {
     display: flex;
     align-items: center;
-    padding: 10px 0;
+    padding: 12px 0;
     border-bottom: 1px solid #eee;
+    transition: background 0.2s;
 }
 
 .task-item:hover {
@@ -101,10 +126,16 @@ h1 {
 
 .task-checkbox {
     margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .task-text {
     flex: 1;
+    font-size: 16px;
+    color: #374151;
 }
 
 .completed .task-text {
@@ -113,11 +144,17 @@ h1 {
 }
 
 .task-delete {
-    color: var(--md-danger);
+    color: #6B7280;
     background: none;
     border: none;
     cursor: pointer;
     font-size: 20px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.task-item:hover .task-delete {
+    opacity: 1;
 }
 
 .todo-footer {
@@ -126,12 +163,13 @@ h1 {
     align-items: center;
     margin-top: 15px;
     font-size: 14px;
+    color: var(--color-text-secondary);
 }
 
 #clearCompleted {
     background: none;
     border: none;
-    color: var(--md-primary);
+    color: var(--color-text-secondary);
     cursor: pointer;
     font-weight: 500;
 }
@@ -143,7 +181,9 @@ h1 {
 .no-tasks-message {
     text-align: center;
     margin-top: 20px;
-    color: #666;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    font-style: italic;
 }
 
 .hidden {
@@ -158,4 +198,31 @@ h1 {
 .material-icons {
     font-size: 20px;
     line-height: 1;
+    vertical-align: middle;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOutUp {
+    to {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+}
+
+.task-item.new {
+    animation: fadeInDown 0.3s ease;
+}
+
+.task-item.removing {
+    animation: fadeOutUp 0.2s ease forwards;
 }
