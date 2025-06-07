@@ -159,3 +159,13 @@ filterBtns.forEach(btn => {
 
 // Initial render
 renderTasks();
+
+// Export functions for testing in Node environment
+if (typeof module !== 'undefined') {
+    module.exports = {
+        addTask,
+        clearCompleted,
+        tasks,
+        renderTasks
+    };
+}
