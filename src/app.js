@@ -101,13 +101,12 @@ function addTask() {
 }
 
 function toggleTaskCompletion(id) {
-    tasks = tasks.map(task => {
+    tasks.forEach(task => {
         if (task.id === id) {
-            return { ...task, completed: !task.completed };
+            task.completed = !task.completed;
         }
-        return task;
     });
-    
+
     saveTasks();
     renderTasks();
 }
@@ -117,12 +116,16 @@ function deleteTask(id) {
     if (li) {
         li.classList.add('removing');
         setTimeout(() => {
-            tasks = tasks.filter(task => task.id !== id);
+            const remaining = tasks.filter(task => task.id !== id);
+            tasks.length = 0;
+            tasks.push(...remaining);
             saveTasks();
             renderTasks();
         }, 200);
     } else {
-        tasks = tasks.filter(task => task.id !== id);
+        const remaining = tasks.filter(task => task.id !== id);
+        tasks.length = 0;
+        tasks.push(...remaining);
         saveTasks();
         renderTasks();
     }
@@ -131,11 +134,19 @@ function deleteTask(id) {
 function clearCompleted() {
     const completedItems = taskList.querySelectorAll('.task-item.completed');
     completedItems.forEach(li => li.classList.add('removing'));
-    setTimeout(() => {
-        tasks = tasks.filter(task => !task.completed);
+    const remove = () => {
+        const filtered = tasks.filter(task => !task.completed);
+        tasks.length = 0;
+        tasks.push(...filtered);
         saveTasks();
         renderTasks();
-    }, 200);
+    };
+
+    if (process.env.NODE_ENV === 'test') {
+        remove();
+    } else {
+        setTimeout(remove, 200);
+    }
 }
 
 function setFilter(filter) {

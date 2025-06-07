@@ -26,6 +26,8 @@ describe('Todo App', () => {
     setupDom();
     jest.resetModules();
     app = require('../src/app.js');
+    jest.useFakeTimers();
+    process.env.NODE_ENV = 'test';
   });
 
   test('addTask adds a new task to the list', () => {
@@ -46,6 +48,7 @@ describe('Todo App', () => {
     app.tasks[0].completed = true;
     app.renderTasks();
     app.clearCompleted();
+    jest.runAllTimers();
 
     expect(app.tasks.length).toBe(1);
     expect(app.tasks[0].text).toBe('Task 2');
