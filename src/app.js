@@ -144,7 +144,7 @@ taskList.addEventListener('click', (e) => {
     
     if (e.target.classList.contains('task-checkbox')) {
         toggleTaskCompletion(taskId);
-    } else if (e.target.classList.contains('task-delete')) {
+    } else if (e.target.closest('.task-delete')) {
         deleteTask(taskId);
     }
 });
