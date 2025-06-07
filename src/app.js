@@ -90,6 +90,11 @@ function addTask() {
     tasks.push(newTask);
     saveTasks();
     renderTasks();
+    const li = taskList.lastElementChild;
+    if (li) {
+        li.classList.add('new');
+        setTimeout(() => li.classList.remove('new'), 300);
+    }
     
     taskInput.value = '';
     taskInput.focus();
@@ -108,15 +113,29 @@ function toggleTaskCompletion(id) {
 }
 
 function deleteTask(id) {
-    tasks = tasks.filter(task => task.id !== id);
-    saveTasks();
-    renderTasks();
+    const li = taskList.querySelector(`[data-id="${id}"]`);
+    if (li) {
+        li.classList.add('removing');
+        setTimeout(() => {
+            tasks = tasks.filter(task => task.id !== id);
+            saveTasks();
+            renderTasks();
+        }, 200);
+    } else {
+        tasks = tasks.filter(task => task.id !== id);
+        saveTasks();
+        renderTasks();
+    }
 }
 
 function clearCompleted() {
-    tasks = tasks.filter(task => !task.completed);
-    saveTasks();
-    renderTasks();
+    const completedItems = taskList.querySelectorAll('.task-item.completed');
+    completedItems.forEach(li => li.classList.add('removing'));
+    setTimeout(() => {
+        tasks = tasks.filter(task => !task.completed);
+        saveTasks();
+        renderTasks();
+    }, 200);
 }
 
 function setFilter(filter) {
