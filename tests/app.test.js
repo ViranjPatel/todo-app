@@ -9,6 +9,7 @@ function setupDom() {
     <ul id="taskList"></ul>
     <span id="taskCount"></span>
     <button id="clearCompleted"></button>
+    <p id="noTasksMessage" class="hidden"></p>
     <button class="filter-btn" data-filter="all"></button>
     <button class="filter-btn" data-filter="active"></button>
     <button class="filter-btn" data-filter="completed"></button>
