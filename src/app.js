@@ -5,6 +5,7 @@ const taskList = document.getElementById('taskList');
 const taskCount = document.getElementById('taskCount');
 const clearCompletedBtn = document.getElementById('clearCompleted');
 const filterBtns = document.querySelectorAll('.filter-btn');
+const noTasksMessage = document.getElementById('noTasksMessage');
 
 // State
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -31,7 +32,10 @@ function createTaskElement(task) {
     
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'task-delete';
-    deleteBtn.innerHTML = '&times;';
+    const deleteIcon = document.createElement('span');
+    deleteIcon.className = 'material-icons';
+    deleteIcon.textContent = 'delete';
+    deleteBtn.appendChild(deleteIcon);
     
     li.appendChild(checkbox);
     li.appendChild(taskText);
@@ -42,13 +46,19 @@ function createTaskElement(task) {
 
 function renderTasks() {
     taskList.innerHTML = '';
-    
+
     const filteredTasks = tasks.filter(task => {
         if (currentFilter === 'active') return !task.completed;
         if (currentFilter === 'completed') return task.completed;
         return true; // 'all' filter
     });
-    
+
+    if (filteredTasks.length === 0) {
+        noTasksMessage.classList.remove('hidden');
+    } else {
+        noTasksMessage.classList.add('hidden');
+    }
+
     filteredTasks.forEach(task => {
         taskList.appendChild(createTaskElement(task));
     });

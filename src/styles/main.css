@@ -1,8 +1,14 @@
+:root {
+    --md-primary: #6200ea;
+    --md-primary-hover: #3700b3;
+    --md-danger: #b00020;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 body {
@@ -22,7 +28,7 @@ body {
 
 h1 {
     text-align: center;
-    color: #2c3e50;
+    color: var(--md-primary);
     margin-bottom: 20px;
 }
 
@@ -34,23 +40,25 @@ h1 {
 #taskInput {
     flex: 1;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 4px 0 0 4px;
     font-size: 16px;
 }
 
 #addTask {
-    padding: 10px 15px;
-    background: #3498db;
-    color: white;
+    padding: 10px 16px;
+    background: var(--md-primary);
+    color: #fff;
     border: none;
     border-radius: 0 4px 4px 0;
     cursor: pointer;
     font-size: 16px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    transition: background 0.2s;
 }
 
 #addTask:hover {
-    background: #2980b9;
+    background: var(--md-primary-hover);
 }
 
 .filters {
@@ -60,17 +68,20 @@ h1 {
 }
 
 .filter-btn {
-    margin: 0 5px;
-    padding: 5px 10px;
-    background: #f8f9fa;
-    border: 1px solid #ddd;
+    margin: 0 4px;
+    padding: 6px 12px;
+    background: none;
+    border: none;
     border-radius: 4px;
     cursor: pointer;
+    color: var(--md-primary);
+    font-weight: 500;
+    transition: background 0.2s;
 }
 
+.filter-btn:hover,
 .filter-btn.active {
-    background: #e9ecef;
-    font-weight: bold;
+    background: rgba(98, 0, 234, 0.1);
 }
 
 .task-list {
@@ -82,6 +93,10 @@ h1 {
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #eee;
+}
+
+.task-item:hover {
+    background: rgba(0, 0, 0, 0.04);
 }
 
 .task-checkbox {
@@ -98,11 +113,11 @@ h1 {
 }
 
 .task-delete {
-    color: #e74c3c;
+    color: var(--md-danger);
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .todo-footer {
@@ -116,10 +131,31 @@ h1 {
 #clearCompleted {
     background: none;
     border: none;
-    color: #7f8c8d;
+    color: var(--md-primary);
     cursor: pointer;
+    font-weight: 500;
 }
 
 #clearCompleted:hover {
     text-decoration: underline;
+}
+
+.no-tasks-message {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
+
+.hidden {
+    display: none;
+}
+
+.visually-hidden {
+    position: absolute;
+    left: -10000px;
+}
+
+.material-icons {
+    font-size: 20px;
+    line-height: 1;
 }
