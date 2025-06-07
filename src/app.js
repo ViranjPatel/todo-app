@@ -58,7 +58,13 @@ function renderTasks() {
 
 function updateTaskCount() {
     const activeTasks = tasks.filter(task => !task.completed).length;
-    taskCount.textContent = `${activeTasks} task${activeTasks !== 1 ? 's' : ''} left`;
+
+    // Ensure proper singular/plural grammar
+    if (activeTasks === 1) {
+        taskCount.textContent = '1 task left';
+    } else {
+        taskCount.textContent = `${activeTasks} tasks left`;
+    }
 }
 
 function addTask() {
